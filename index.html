@@ -1,63 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mobile Phone Mockup</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="camera.css" />
+  </head>
+  <body>
     <div class="phone-container">
-        <div class="phone">
-            <div class="phone-screen">
-                <div class="status-bar">
-                    <span class="time">9:41</span>
-                    <div class="status-icons">
-                        <span class="signal">📶</span>
-                        <span class="wifi">📶</span>
-                        <span class="battery">🔋</span>
-                    </div>
-                </div>
-                <div class="home-screen">
-                    <div class="app-icon" id="snapchat-icon">
-                        <div class="icon-image snapchat-icon"></div>
-                        <div class="icon-label">Snapchat</div>
-                    </div>
-                </div>
-                <div class="home-indicator"></div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <span class="signal">📶</span>
+              <span class="wifi">📶</span>
+              <span class="battery">🔋</span>
             </div>
+          </div>
+          <div class="home-screen">
+            <div class="app-icon" id="snapchat-icon">
+              <div class="icon-image snapchat-icon"></div>
+              <div class="icon-label">Snapchat</div>
+            </div>
+          </div>
+          <div class="home-indicator"></div>
         </div>
+      </div>
     </div>
 
-    <div id="todo-page" class="todo-page hidden">
-        <div class="todo-header">
-            <button class="close-btn" id="close-btn">✕</button>
-            <h1>TODO List</h1>
+    <!-- Snapchat-like Camera Page -->
+    <div id="camera-page" class="camera-page hidden">
+      <div class="camera-header">
+        <button class="camera-close-btn" id="camera-close-btn">✕</button>
+        <button class="camera-flash-btn" id="camera-flash-btn">⚡</button>
+      </div>
+
+      <div class="camera-view">
+        <video
+          id="camera-video"
+          class="camera-video"
+          autoplay
+          playsinline
+        ></video>
+
+        <div id="camera-loading" class="camera-loading">
+          <div class="camera-loading-spinner"></div>
+          <span>Starting camera...</span>
         </div>
-        <div class="todo-content">
-            <div class="todo-item">
-                <input type="checkbox" id="task1">
-                <label for="task1">Build an amazing website</label>
-            </div>
-            <div class="todo-item">
-                <input type="checkbox" id="task2">
-                <label for="task2">Create mobile phone mockup</label>
-            </div>
-            <div class="todo-item">
-                <input type="checkbox" id="task3">
-                <label for="task3">Add Snapchat icon</label>
-            </div>
-            <div class="todo-item">
-                <input type="checkbox" id="task4">
-                <label for="task4">Implement TODO page</label>
-            </div>
-            <div class="todo-item">
-                <input type="checkbox" id="task5">
-                <label for="task5">Test on mobile device</label>
-            </div>
+
+        <div id="camera-error" class="camera-error">
+          <div class="camera-error-icon">📷</div>
+          <div class="camera-error-text">Camera access denied</div>
+          <div class="camera-error-hint">
+            Please allow camera access to use this feature
+          </div>
         </div>
+      </div>
+
+      <div class="snapchat-overlay">
+        <div class="lens-circle"></div>
+        <div class="lens-circle"></div>
+        <div class="lens-circle"></div>
+        <div class="lens-circle"></div>
+        <div class="lens-circle"></div>
+      </div>
+
+      <div class="camera-controls">
+        <button class="capture-btn" id="capture-btn">
+          <div class="capture-btn-inner"></div>
+        </button>
+      </div>
+
+      <canvas id="snapshot-canvas" class="snapshot-canvas"></canvas>
+
+      <!-- Match Result Overlay -->
+      <div id="match-overlay" class="match-overlay hidden">
+        <div class="match-content">
+          <div id="match-loading" class="match-loading">
+            <div class="match-spinner"></div>
+            <div class="match-loading-text">Match met Hilde bepalen</div>
+          </div>
+          <div id="match-result" class="match-result hidden">
+            <div class="match-result-text">Match met Hilde:</div>
+            <div class="match-percentage">30%</div>
+            <button id="new-snap-btn" class="new-snap-btn">Nieuwe Snap</button>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <script src="camera.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

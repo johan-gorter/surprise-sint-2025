@@ -1,0 +1,359 @@
+/* Snapchat-like Camera Page Styles */
+.camera-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-out;
+}
+
+.camera-page.hidden {
+  transform: translateY(100%);
+}
+
+.camera-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+}
+
+.camera-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  backdrop-filter: blur(10px);
+}
+
+.camera-close-btn:hover,
+.camera-close-btn:active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.camera-flash-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.camera-view {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Mirror for selfie */
+}
+
+.camera-error {
+  color: white;
+  text-align: center;
+  padding: 40px;
+  display: none;
+}
+
+.camera-error.visible {
+  display: block;
+}
+
+.camera-error-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.camera-error-text {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.camera-error-hint {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.camera-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px 50px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+}
+
+.capture-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.capture-btn:hover {
+  transform: scale(1.05);
+}
+
+.capture-btn:active {
+  transform: scale(0.95);
+  background: #e0e0e0;
+}
+
+.capture-btn-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: white;
+}
+
+/* Side buttons container */
+.camera-side-btns {
+  position: absolute;
+  left: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.camera-side-btns-right {
+  position: absolute;
+  right: 50px;
+}
+
+.camera-switch-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+/* Snapchat-style overlay elements */
+.snapchat-overlay {
+  position: absolute;
+  bottom: 140px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 0 20px;
+}
+
+.lens-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+/* Canvas for snapshot (hidden) */
+.snapshot-canvas {
+  display: none;
+}
+
+/* Loading state */
+.camera-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.camera-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Safe area for notched phones */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .camera-header {
+    padding-top: calc(15px + env(safe-area-inset-top));
+  }
+
+  .camera-controls {
+    padding-bottom: calc(50px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Match Result Overlay */
+.match-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.match-overlay.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.match-content {
+  text-align: center;
+  color: white;
+}
+
+/* Match Loading State */
+.match-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.match-loading.hidden {
+  display: none;
+}
+
+.match-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 252, 0, 0.2);
+  border-top-color: #fffc00;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.match-loading-text {
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Match Result State */
+.match-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: scaleIn 0.4s ease-out;
+}
+
+.match-result.hidden {
+  display: none;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.match-result-text {
+  font-size: 24px;
+  font-weight: 500;
+  color: white;
+}
+
+.match-percentage {
+  font-size: 72px;
+  font-weight: 700;
+  color: #fffc00;
+  text-shadow: 0 0 30px rgba(255, 252, 0, 0.5);
+}
+
+.new-snap-btn {
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  background: linear-gradient(135deg, #fffc00 0%, #fff700 100%);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(255, 252, 0, 0.4);
+}
+
+.new-snap-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(255, 252, 0, 0.5);
+}
+
+.new-snap-btn:active {
+  transform: scale(0.98);
+}
